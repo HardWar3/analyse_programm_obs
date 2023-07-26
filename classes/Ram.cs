@@ -20,8 +20,10 @@ namespace analyse_programm_obs
          * get_name
          */
 
-        private ManagementObjectSearcher ram_information = new ManagementObjectSearcher("select * from Win32_PhysicalMemory");
-        private PerformanceCounter ram_usage = new PerformanceCounter("Memory", "Available MBeytes");
+        private ManagementObjectSearcher information = new ManagementObjectSearcher("select * from Win32_PhysicalMemory");
+        private PerformanceCounter usage = new PerformanceCounter("Memory", "Available MBeytes");
+
+        private List<double> available_prozent_list = new List<double>();
 
         public double get_usage()
         {
@@ -35,11 +37,11 @@ namespace analyse_programm_obs
 
         public double get_available ()
         {
-            float first_ram_usage_value = ram_usage.NextValue();
+            float first_ram_usage_value = usage.NextValue();
 
             System.Threading.Thread.Sleep(1000);
 
-            double ram_available = Convert.ToUInt32(ram_usage.NextValue()) / 1000.0; // 1000.0 führt zur korrekten kommerstelle
+            double ram_available = Convert.ToUInt32(usage.NextValue()) / 1000.0; // 1000.0 führt zur korrekten kommerstelle
 
             ram_available = Math.Round(ram_available / 1.074,2); // Gigabyte zu Gibibyte Umrechnung
 
@@ -60,7 +62,7 @@ namespace analyse_programm_obs
         {
             double total = 0;
 
-            foreach (ManagementObject item in ram_information.Get())
+            foreach (ManagementObject item in information.Get())
             {
                 total += Convert.ToDouble(item["Capacity"]) / 1000000000; // 1000000000 führt zur korrekten kommerstelle
             }
@@ -74,12 +76,24 @@ namespace analyse_programm_obs
         {
             string ram_name = null;
 
-            foreach (ManagementObject item in ram_information.Get())
+            foreach (ManagementObject item in information.Get())
             {
                 ram_name = item["ManuFacturer"].ToString();
             }
 
             return ram_name;
+        }
+
+        public void add_peak()
+        {
+            double peak = get_available_prozent();
+
+            available_prozent_list.Add(peak);
+        }
+
+        public List<double> get_available_prozent_list()
+        {
+            return available_prozent_list;
         }
     }
 }

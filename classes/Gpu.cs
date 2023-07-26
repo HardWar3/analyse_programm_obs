@@ -17,9 +17,11 @@ namespace analyse_programm_obs
          * get_name
          */
 
-        ManagementObjectSearcher gpu_information = new ManagementObjectSearcher("select * from Win32_VideoController");
-        ManagementObjectSearcher gpu_usage = new ManagementObjectSearcher("select * from " +
+        private ManagementObjectSearcher information = new ManagementObjectSearcher("select * from Win32_VideoController");
+        private ManagementObjectSearcher usage = new ManagementObjectSearcher("select * from " +
             "Win32_PerfFormattedData_GPUPerformanceCounters_GPUEngine where Name LIKE '%engtype_3D'");
+
+        private List<double> usage_list = new List<double>();
 
         public double get_usage ()
         {
@@ -27,7 +29,7 @@ namespace analyse_programm_obs
 
             System.Threading.Thread.Sleep(1000);
 
-            foreach (ManagementObject item in gpu_usage.Get())
+            foreach (ManagementObject item in usage.Get())
             {
                 gpu_counter += Convert.ToDouble(item["UtilizationPercentage"]);
             }
@@ -39,12 +41,24 @@ namespace analyse_programm_obs
         {
             string gpu_name = null;
 
-            foreach (ManagementObject item in gpu_information.Get())
+            foreach (ManagementObject item in information.Get())
             {
                 gpu_name = item["Name"].ToString();
             }
 
             return gpu_name;
+        }
+
+        public void add_peak()
+        {
+            double peak = get_usage();
+
+            usage_list.Add(peak);
+        }
+
+        public List<double> get_peak_in_list()
+        {
+            return usage_list;
         }
     }
 }

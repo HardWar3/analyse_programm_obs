@@ -48,9 +48,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Gpu.cs" />
-    <Compile Include="Ram.cs" />
-    <Compile Include="Cpu.cs" />
+    <Compile Include="classes\Gpu.cs" />
+    <Compile Include="classes\Ram.cs" />
+    <Compile Include="classes\Cpu.cs" />
     <Compile Include="Analyse_programm.cs">
       <SubType>Form</SubType>
     </Compile>

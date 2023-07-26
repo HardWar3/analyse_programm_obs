@@ -32,7 +32,7 @@
             this.cpu_prozessbar = new System.Windows.Forms.ProgressBar();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.cpu_usage = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cpu_prozessbar
@@ -58,22 +58,22 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "CPU :";
             // 
-            // label2
+            // cpu_usage
             // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Location = new System.Drawing.Point(12, 43);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "label2";
+            this.cpu_usage.AutoSize = true;
+            this.cpu_usage.BackColor = System.Drawing.Color.Transparent;
+            this.cpu_usage.Location = new System.Drawing.Point(50, 15);
+            this.cpu_usage.Name = "cpu_usage";
+            this.cpu_usage.Size = new System.Drawing.Size(66, 13);
+            this.cpu_usage.TabIndex = 2;
+            this.cpu_usage.Text = "CPU_Usage";
             // 
             // Analyse_programm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.cpu_usage);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cpu_prozessbar);
             this.Name = "Analyse_programm";
@@ -89,7 +89,7 @@
         private System.Windows.Forms.ProgressBar cpu_prozessbar;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label cpu_usage;
     }
 }
 
