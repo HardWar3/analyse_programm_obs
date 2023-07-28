@@ -10,27 +10,18 @@ namespace analyse_programm_obs
 {
     internal class Cpu
     {
-
-        /*
-         * name
-         * usage
-         * 
-         * get_usage
-         * get_name
-         */
-
         private ManagementObjectSearcher information = new ManagementObjectSearcher("select * from Win32_Processor");
         private PerformanceCounter usage = new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
-        private List<double> usage_list = new List<double>();
+        private List<int> usage_list = new List<int>();
 
-        public double get_usage()
-        {
+        public int get_usage()
+        { 
             float first_cpu_usage_value = usage.NextValue();
 
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(200);
 
-            return usage.NextValue();
+            return Convert.ToInt32(usage.NextValue());
         }
 
         public string get_name()
@@ -45,16 +36,34 @@ namespace analyse_programm_obs
             return cpu_name;
         }
 
-        public void add_peak()
+        public void add_peak(int peak = -1)
         {
-            double peak = get_usage();
+            if (peak < 0)
+            {
+                int _peak = get_usage();
 
-            usage_list.Add(peak);
+                usage_list.Add(_peak);
+            } else
+            {
+                usage_list.Add(peak);
+            }
+
         }
 
-        public List<double> get_usage_list()
+        public List<int> get_usage_list()
         {
             return usage_list;
+        }
+
+        public int get_last_peak() 
+        {
+            if (usage_list.Count == 0)
+            {
+                return 0;
+            }
+            int last_peak = usage_list.Last();
+
+            return last_peak;
         }
     }
 }

@@ -10,55 +10,52 @@ namespace analyse_programm_obs
 {
     internal class Ram
     {
-        /*
-         * name
-         * usage
-         * 
-         * get_usage
-         * get_available
-         * get_total
-         * get_name
-         */
-
         private ManagementObjectSearcher information = new ManagementObjectSearcher("select * from Win32_PhysicalMemory");
-        private PerformanceCounter usage = new PerformanceCounter("Memory", "Available MBeytes");
+        private PerformanceCounter usage = new PerformanceCounter("Memory", "Available MBytes");
 
-        private List<double> available_prozent_list = new List<double>();
+        private List<int> available_percent_list = new List<int>();
 
-        public double get_usage()
+        public int get_usage()
         {
             double total = get_total();
             double available = get_available();
 
-            double result = Math.Round(total - available,2);
+            int result = Convert.ToInt32(Math.Round(total - available, 2));
 
             return result;
         }
 
-        public double get_available ()
+        public int get_usage_percent()
+        {
+            int usage_percent = 100 - get_available_percent();
+
+            return usage_percent;
+        }
+
+        public int get_available()
         {
             float first_ram_usage_value = usage.NextValue();
 
-            System.Threading.Thread.Sleep(1000);
+            //System.Threading.Thread.Sleep(100);
 
             double ram_available = Convert.ToUInt32(usage.NextValue()) / 1000.0; // 1000.0 führt zur korrekten kommerstelle
 
-            ram_available = Math.Round(ram_available / 1.074,2); // Gigabyte zu Gibibyte Umrechnung
+            ram_available = Math.Round(ram_available / 1.074, 2); // Gigabyte zu Gibibyte Umrechnung
 
-            return ram_available;
+            return Convert.ToInt32(ram_available);
         }
 
-        public double get_available_prozent ()
+        public int get_available_percent()
         {
             double total = get_total();
             double available = get_available();
 
-            double result = Math.Round(available / (total / 100),2);
+            int result = Convert.ToInt32(Math.Round(available / (total / 100), 2));
 
             return result;
         }
-        
-        public double get_total ()
+
+        public double get_total()
         {
             double total = 0;
 
@@ -67,7 +64,7 @@ namespace analyse_programm_obs
                 total += Convert.ToDouble(item["Capacity"]) / 1000000000; // 1000000000 führt zur korrekten kommerstelle
             }
 
-            total = Math.Round(total / 1.074,2); // Gigabyte zu Gibibyte Umrechnung
+            total = Convert.ToInt32(Math.Round(total / 1.074, 2)); // Gigabyte zu Gibibyte Umrechnung
 
             return total;
         }
@@ -84,16 +81,45 @@ namespace analyse_programm_obs
             return ram_name;
         }
 
-        public void add_peak()
+        public void add_peak(int peak = -1)
         {
-            double peak = get_available_prozent();
+            if (peak < 0)
+            {
+                int _peak = get_available_percent();
 
-            available_prozent_list.Add(peak);
+                available_percent_list.Add(_peak);
+            } else
+            {
+                available_percent_list.Add(peak);
+            }
+
         }
 
-        public List<double> get_available_prozent_list()
+        public List<int> get_available_percent_list()
         {
-            return available_prozent_list;
+            return available_percent_list;
+        }
+
+        public int get_last_usage_peak()
+        {
+            if (available_percent_list.Count == 0)
+            {
+                return 0;
+            }
+            int last_peak = 100 - available_percent_list.Last();
+
+            return last_peak;
+        }
+
+        public int get_last_available_peak()
+        {
+            if (available_percent_list.Count == 0)
+            {
+                return 0;
+            }
+            int last_available_peak = available_percent_list.Last();
+
+            return last_available_peak;
         }
     }
 }
