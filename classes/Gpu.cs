@@ -19,7 +19,7 @@ namespace analyse_programm_obs
         {
             int gpu_counter = 0;
 
-            //System.Threading.Thread.Sleep(100);
+            System.Threading.Thread.Sleep(100);
 
            foreach (ManagementObject item in usage.Get())
             {

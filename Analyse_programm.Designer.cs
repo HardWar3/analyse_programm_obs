@@ -139,6 +139,7 @@
             this.start_stop_button.Text = "Start";
             this.start_stop_button.UseVisualStyleBackColor = true;
             this.start_stop_button.Click += new System.EventHandler(this.start_stop_button_Click);
+            this.start_stop_button.BackColor = System.Drawing.Color.DarkGreen;
             // 
             // Analyse_programm
             // 

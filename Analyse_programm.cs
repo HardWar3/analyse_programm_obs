@@ -15,10 +15,11 @@ namespace analyse_programm_obs
     public partial class Analyse_programm : Form
     {
 
-        private Cpu cpu = new Cpu();
-        private Gpu gpu = new Gpu();
-        private Ram ram = new Ram();
-
+        private static Cpu cpu = new Cpu();
+        private static Gpu gpu = new Gpu();
+        private static Ram ram = new Ram();
+        private static int count_on_start = 0;
+        private static int count_on_stop = 0;
         public Analyse_programm()
         {
             InitializeComponent();
@@ -30,8 +31,8 @@ namespace analyse_programm_obs
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            Thread keks_thread = new Thread(new ThreadStart(keks));
-            keks_thread.Start();
+            Task task_all_add_peak = new Task(() => all_add_peak());
+            task_all_add_peak.Start();
 
             cpu_prozessbar.Value = cpu.get_last_peak();
             cpu_usage_label.Text = String.Format("{0:00} %", cpu_prozessbar.Value);
@@ -48,18 +49,25 @@ namespace analyse_programm_obs
             if (start_stop_button.Text == "Start")
             {
                 start_stop_button.Text = "Stop";
+                start_stop_button.BackColor = Color.DarkRed;
+
+                count_on_start = cpu.get_usage_list().Count - 1;
+                Console.WriteLine(count_on_start);
             } else if(start_stop_button.Text == "Stop")
             {
                 start_stop_button.Text = "Start";
+                start_stop_button.BackColor = Color.DarkGreen;
+
+                count_on_stop = cpu.get_usage_list().Count - 1;
+                Console.WriteLine(count_on_stop);
             }
         }
 
-        public void keks()
+        public void all_add_peak()
         {
             cpu.add_peak();
             ram.add_peak();
             gpu.add_peak();
-            Console.WriteLine("KRÜMMELN");
         }
     }
 }

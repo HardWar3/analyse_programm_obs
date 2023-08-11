@@ -19,7 +19,7 @@ namespace analyse_programm_obs
         { 
             float first_cpu_usage_value = usage.NextValue();
 
-            System.Threading.Thread.Sleep(200);
+            System.Threading.Thread.Sleep(500);
 
             return Convert.ToInt32(usage.NextValue());
         }
