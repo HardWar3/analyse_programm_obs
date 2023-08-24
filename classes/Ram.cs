@@ -121,5 +121,22 @@ namespace analyse_programm_obs
 
             return last_available_peak;
         }
+
+        public int get_usage_average(int start, int stop)
+        {
+            int count = stop - start;
+
+            if (count == 0)
+            {
+                return 0;
+            } else if (count > available_percent_list.Count || stop > available_percent_list.Count)
+            {
+                count = available_percent_list.Count - start;
+            }
+
+            List<int> usage_rang = available_percent_list.GetRange(start, count);
+            int usage = 100 - Convert.ToInt32(usage_rang.Average());
+            return usage;
+        }
     }
 }

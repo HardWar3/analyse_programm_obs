@@ -51,15 +51,16 @@ namespace analyse_programm_obs
                 start_stop_button.Text = "Stop";
                 start_stop_button.BackColor = Color.DarkRed;
 
-                count_on_start = cpu.get_usage_list().Count - 1;
-                Console.WriteLine(count_on_start);
+                count_on_start = cpu.get_usage_list().Count;
             } else if(start_stop_button.Text == "Stop")
             {
                 start_stop_button.Text = "Start";
                 start_stop_button.BackColor = Color.DarkGreen;
 
-                count_on_stop = cpu.get_usage_list().Count - 1;
-                Console.WriteLine(count_on_stop);
+                count_on_stop = cpu.get_usage_list().Count;
+                Console.WriteLine("CPU AVG: " + cpu.get_usage_average(count_on_start,count_on_stop));
+                Console.WriteLine("RAM AVG: " + ram.get_usage_average(count_on_start,count_on_stop));
+                Console.WriteLine("GPU AVG: " + gpu.get_usage_average(count_on_start,count_on_stop));
             }
         }
 

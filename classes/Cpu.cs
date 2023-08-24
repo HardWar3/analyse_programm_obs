@@ -65,5 +65,21 @@ namespace analyse_programm_obs
 
             return last_peak;
         }
+
+        public int get_usage_average(int start, int stop)
+        {
+            int count = stop - start;
+
+            if (count == 0) 
+            {
+                return 0;
+            } else if (count > usage_list.Count || stop > usage_list.Count)
+            {
+                count = usage_list.Count - start;
+            }
+
+            List<int> usage_range = usage_list.GetRange(start, count);
+            return Convert.ToInt32(usage_range.Average());
+        }
     }
 }

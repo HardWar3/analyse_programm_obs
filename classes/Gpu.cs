@@ -54,7 +54,7 @@ namespace analyse_programm_obs
             }
         }
 
-        public List<double> get_peak_in_list()
+        public List<double> get_usage_list()
         {
             return usage_list;
         }
@@ -67,7 +67,22 @@ namespace analyse_programm_obs
             }
             double last_peak = usage_list.Last();
 
-            return (int)last_peak;
+            return Convert.ToInt32(last_peak);
+        }
+
+        public int get_usage_average(int start, int stop)
+        {
+            int count = stop - start;
+
+            if (count <= 0)
+            {
+                return 0;
+            } else if (count > usage_list.Count || stop > usage_list.Count)
+            {
+                count = usage_list.Count - start;
+            }
+            List<double> usage_range = usage_list.GetRange(start, count);   
+            return Convert.ToInt32(usage_range.Average());
         }
     }
 }
