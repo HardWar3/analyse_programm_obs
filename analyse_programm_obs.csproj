@@ -37,6 +37,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,10 +58,19 @@
     <Compile Include="Analyse_programm.Designer.cs">
       <DependentUpon>Analyse_programm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Auswertung.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Auswertung.Designer.cs">
+      <DependentUpon>Auswertung.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Analyse_programm.resx">
       <DependentUpon>Analyse_programm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Auswertung.resx">
+      <DependentUpon>Auswertung.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

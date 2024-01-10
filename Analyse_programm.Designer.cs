@@ -131,21 +131,24 @@
             // 
             // start_stop_button
             // 
+            this.start_stop_button.BackColor = System.Drawing.Color.DarkGreen;
             this.start_stop_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.start_stop_button.Location = new System.Drawing.Point(127, 255);
             this.start_stop_button.Name = "start_stop_button";
             this.start_stop_button.Size = new System.Drawing.Size(390, 120);
             this.start_stop_button.TabIndex = 9;
             this.start_stop_button.Text = "Start";
-            this.start_stop_button.UseVisualStyleBackColor = true;
+            this.start_stop_button.UseVisualStyleBackColor = false;
             this.start_stop_button.Click += new System.EventHandler(this.start_stop_button_Click);
-            this.start_stop_button.BackColor = System.Drawing.Color.DarkGreen;
             // 
             // Analyse_programm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(659, 450);
+            this.MinimizeBox = false;
+            this.MaximizeBox = false;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Controls.Add(this.start_stop_button);
             this.Controls.Add(this.gpu_usage_label);
             this.Controls.Add(this.GPU_label);

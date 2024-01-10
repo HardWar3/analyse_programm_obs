@@ -22,9 +22,9 @@ namespace analyse_programm_obs
             System.Threading.Thread.Sleep(100);
 
            foreach (ManagementObject item in usage.Get())
-            {
+           {
                 gpu_counter += Convert.ToInt32(item["UtilizationPercentage"]);
-            }
+           }
 
             return gpu_counter;
         }
